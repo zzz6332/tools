@@ -73,7 +73,7 @@ public class HttpUtil {
         for (int i = number; i < type_list.size(); i++) {
             try {
                 if (type_list.get(i).equals("键值对")) {
-                    key_value_list.add("\"" + object_list.get(i) + "\"" + ": " + jsonObject.get(object_list.get(i)) + "\n");
+                    key_value_list.add("\"" + object_list.get(i) + "\"" + ": " + jsonObject.get(object_list.get(i)));
                 }
                 if (type_list.get(i).equals("对象")) {  //如果是json对象
                     JSONObject jsonObject1 = jsonObject.getJSONObject(object_list.get(i));

@@ -1,14 +1,8 @@
 package com.example.httputilwithhttpurlconnection.threadpool;
 
-import android.util.Log;
-
-import com.example.httputilwithhttpurlconnection.httpurlconnection.HttpCallBackListener;
-
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,10 +19,12 @@ public class ThreadPoolUtil {
     private static final int KEEP_ALIVE = 20;
 
     private static ThreadPoolUtil mInstance;
-    private ExecutorService executorService;
+    private ThreadPoolExecutor executor;
+
     //私有化构造方法，防止被实例化
     private ThreadPoolUtil() {
     }
+
     //单例模式
     public static ThreadPoolUtil getInstance() {
         if (mInstance == null) {
@@ -39,33 +35,37 @@ public class ThreadPoolUtil {
 
     public void excute(Runnable r) {
         check();
-        executorService.execute(r);
+        executor.execute(r);
     }
 
     public void excute(List<Runnable> list) {
         check();
         for (Runnable command : list) {
-            executorService.execute(command);
+            executor.execute(command);
         }
     }
 
     public void shutDown() {
-        executorService.shutdown();
+        executor.shutdown();
     }
 
     public <T> Future<T> submit(Callable<T> task) {
         check();
-        return executorService.submit(task);
+        return executor.submit(task);
     }
 
     public <T> Future<T> submit(Runnable task, T result) {
         check();
-        return executorService.submit(task, result);
+        return executor.submit(task, result);
+    }
+
+    public void cancle(Runnable r) {
+        executor.getQueue().remove(r);
     }
 
     private void check() {
-        if (executorService == null) {
-            executorService = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20), new ThreadPoolExecutor.AbortPolicy());
+        if (executor == null) {
+            executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20), new ThreadPoolExecutor.AbortPolicy());
         }
     }
 }
