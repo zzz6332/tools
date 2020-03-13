@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 037f8560897847b5b69c1044ed51c47fa1b7d05c
 # HttpUtil
 
 使用方法：HttpUtil.sendHttpWithUrlConnection(final String address, final List<String> mneed_list, final httpCallBackListener listener)
@@ -17,7 +14,4 @@ listener：回调OnFinish和OnError.
 ThreadPoolUtil util = ThreadPoolUtil.getInstance();
 
 util.execute(//Runnable对象);
-<<<<<<< HEAD
 
-=======
->>>>>>> 037f8560897847b5b69c1044ed51c47fa1b7d05c
