@@ -28,7 +28,9 @@ public class ThreadPoolUtil {
     //单例模式
     public static ThreadPoolUtil getInstance() {
         if (mInstance == null) {
-            mInstance = new ThreadPoolUtil();
+            synchronized (ThreadPoolUtil.class){
+                mInstance = new ThreadPoolUtil();
+            }
         }
         return mInstance;
     }
