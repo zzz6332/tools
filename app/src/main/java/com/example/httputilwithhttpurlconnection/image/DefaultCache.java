@@ -2,8 +2,6 @@ package com.example.httputilwithhttpurlconnection.image;
 
 import android.graphics.Bitmap;
 
-import com.example.httputilwithhttpurlconnection.httpurlconnection.HttpUtil;
-import com.example.httputilwithhttpurlconnection.threadpool.ThreadPoolUtil;
 
 public class DefaultCache implements ImageCache {
 

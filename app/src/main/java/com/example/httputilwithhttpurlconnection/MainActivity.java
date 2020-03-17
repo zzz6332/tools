@@ -40,6 +40,5 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.iv);
         ImageLoader loader = new ImageLoader(new MemoryCache());
         loader.display(imageView,"https://iknow-pic.cdn.bcebos.com/1b4c510fd9f9d72a1871ecadda2a2834349bbb6d");
-
     }
 }
