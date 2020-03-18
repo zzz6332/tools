@@ -19,7 +19,7 @@ public class ImageLoader {
     private Bitmap bitmap;
     private ImageView imageView;
     private ThreadPoolUtil poolUtil;
-    private ImageCache cache = new DefaultCache();
+    private ImageCache cache = new MemoryCache();
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -36,8 +36,8 @@ public class ImageLoader {
     public void display(ImageView imageView, String url) {
         this.imageView = imageView;
         bitmap = cache.get(url);
-        Log.d(TAG, "第一步");
         if (bitmap != null) {
+            Log.d("TAG","从Cache中获取到了bitmap");
             imageView.setImageBitmap(bitmap);
             return;
         }
@@ -47,7 +47,6 @@ public class ImageLoader {
     private void loadFromNet(final ImageView imageView, final String url) {
         poolUtil = ThreadPoolUtil.getInstance();
         imageView.setTag(url);
-
         poolUtil.excute(new Runnable() {
             @Override
             public void run() {
@@ -72,10 +71,9 @@ public class ImageLoader {
     private Bitmap downloadBitmap(final String imageUrl) {
         try {
             URL url = new URL(imageUrl);
-            Log.d(TAG, "dowmloadBitmap");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             bitmap = BitmapFactory.decodeStream(connection.getInputStream());
-            Log.d(TAG, "dowmloadBitmap2");
+            Log.d(TAG, "dowmloadBitmap");
             connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();

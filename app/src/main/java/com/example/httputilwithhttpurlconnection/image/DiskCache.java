@@ -1,10 +1,12 @@
 package com.example.httputilwithhttpurlconnection.image;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
+import com.example.httputilwithhttpurlconnection.MainActivity;
 import com.example.httputilwithhttpurlconnection.threadpool.ThreadPoolUtil;
 
 import java.io.File;
@@ -13,30 +15,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DiskCache implements ImageCache {
-    public static String cacheDir = "sdcard/cache/";
-
+    private Context context;
     public static final String TAG = "DiskCache";
     private ThreadPoolUtil util = ThreadPoolUtil.getInstance(); //线程池工具类
+
+    public DiskCache(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void put(final String url, final Bitmap bitmap) {
         util.excute(new Runnable() {
             @Override
             public void run() {
-                    File file = new File(cacheDir + "jij.txt" );
-                    if (!file.exists()) {
-                        try {
-                            file.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                File file = new File(context.getCacheDir(), url.substring(url.lastIndexOf("/")));
                 FileOutputStream outputStream = null;
                 try {
-                    outputStream = new FileOutputStream(cacheDir + url);
-                    Log.d(TAG,"1111");
-                    bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
-                    Log.d(TAG,"2222");
+                    Log.d(TAG,file.toString());
+                    outputStream = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                    Log.d(TAG, "sd卡放了缓存");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -47,6 +45,6 @@ public class DiskCache implements ImageCache {
 
     @Override
     public Bitmap get(String url) {
-        return BitmapFactory.decodeFile(cacheDir + url);
+        return BitmapFactory.decodeFile(context.getCacheDir() + "/" + url.substring(url.lastIndexOf("/")));
     }
 }
