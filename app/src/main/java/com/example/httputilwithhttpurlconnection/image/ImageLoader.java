@@ -29,7 +29,7 @@ public class ImageLoader {
         }
     };
 
-    public ImageLoader(ImageCache imageCache) {
+    public ImageLoader(ImageCache imageCache) { //初始化图片加载的策略
         cache = imageCache;
     }
 
@@ -75,7 +75,6 @@ public class ImageLoader {
             Log.d(TAG, "dowmloadBitmap");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             bitmap = BitmapFactory.decodeStream(connection.getInputStream());
-            cache.put(imageUrl,bitmap);
             Log.d(TAG, "dowmloadBitmap2");
             connection.disconnect();
         } catch (Exception e) {
