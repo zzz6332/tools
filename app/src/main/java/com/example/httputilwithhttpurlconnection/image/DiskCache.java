@@ -47,4 +47,5 @@ public class DiskCache implements ImageCache {
     public Bitmap get(String url) {
         return BitmapFactory.decodeFile(context.getCacheDir() + "/" + url.substring(url.lastIndexOf("/")));
     }
+
 }

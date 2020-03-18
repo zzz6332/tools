@@ -19,7 +19,7 @@ public class ImageLoader {
     private Bitmap bitmap;
     private ImageView imageView;
     private ThreadPoolUtil poolUtil;
-    private ImageCache cache = new MemoryCache();
+    private ImageCache cache;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {

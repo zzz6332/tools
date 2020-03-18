@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -49,8 +51,13 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, permissions, 1);
         }
         imageView = findViewById(R.id.iv);
-        ImageLoader loader = new ImageLoader(new DefaultCache(MainActivity.this));
-        loader.display(imageView, "http://img0.imgtn.bdimg.com/it/u=2374647389,52685935&fm=26&gp=0.jpg");
-        MemoryCache.test();
+        List<String> test = new ArrayList<>();
+        RecyclerView recyclerView = findViewById(R.id.rv);
+        test.add("http://img4.imgtn.bdimg.com/it/u=1437445163,833182487&fm=26&gp=0.jpg");
+        test.add("http://img3.imgtn.bdimg.com/it/u=2327673368,864828007&fm=26&gp=0.jpg");
+        test.add("http://img4.imgtn.bdimg.com/it/u=2127744929,2525013243&fm=26&gp=0.jpg");
+        MyAdapter adapter = new MyAdapter(MainActivity.this,test);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 }
