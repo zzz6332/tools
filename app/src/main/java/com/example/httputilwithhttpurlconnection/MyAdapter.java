@@ -28,7 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewholder> {
        this.context = context;
        urlList = list;
        if (loader == null){
-           loader = new ImageLoader(new DefaultCache(context));
+           loader = new ImageLoader(new DefaultCache(context),R.drawable.ic_load,R.drawable.ic_fail);
        }
    }
     @NonNull

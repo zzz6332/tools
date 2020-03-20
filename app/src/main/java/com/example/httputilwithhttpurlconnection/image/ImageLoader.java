@@ -3,6 +3,7 @@ package com.example.httputilwithhttpurlconnection.image;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.media.session.MediaSession;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ import java.net.URL;
 public class ImageLoader {
     public static String TAG = "ImageLoader";
     private Bitmap bitmap;
+    private int loadId;
+    private int failId;
     private ImageView imageView;
     private ThreadPoolUtil poolUtil;
     private ImageCache cache;
@@ -25,17 +28,26 @@ public class ImageLoader {
             switch (msg.what) {
                 case 1:
                     imageView.setImageBitmap(bitmap);
+                    break;
+                case 2:
+                    imageView.setImageResource(loadId);
+                    break;
+                case 3:
+                    imageView.setImageResource(failId);
             }
         }
     };
 
-    public ImageLoader(ImageCache imageCache) { //初始化图片加载的策略
+    public ImageLoader(ImageCache imageCache,int loadId,int failId) { //初始化图片加载的策略
         cache = imageCache;
+        this.loadId = loadId;
+        this.failId = failId;
     }
 
     public void display(ImageView imageView, String url) {
         this.imageView = imageView;
         bitmap = cache.get(url);
+        imageView.setImageResource(loadId);
         if (bitmap != null) {
             Log.d("TAG","从Cache中获取到了bitmap");
             imageView.setImageBitmap(bitmap);
@@ -77,6 +89,9 @@ public class ImageLoader {
             connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
+            Message message = new Message();
+            message.what = 3;
+            handler.sendMessage(message);
         }
         return bitmap;
 
