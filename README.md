@@ -15,3 +15,11 @@ ThreadPoolUtil util = ThreadPoolUtil.getInstance();
 
 util.execute(//Runnable对象);
 
+
+
+# ImageLoader
+
+使用方法：ImageLoader loader = new ImageLoader(这里传入缓存的策略);
+
+缓存策略：内存缓存，本地缓存，内存和本地缓存。
+

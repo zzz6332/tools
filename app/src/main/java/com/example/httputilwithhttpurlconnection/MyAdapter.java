@@ -27,7 +27,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewholder> {
    public MyAdapter(Context context, List<String> list){
        this.context = context;
        urlList = list;
-       loader = new ImageLoader(new DefaultCache(context));
+       if (loader == null){
+           loader = new ImageLoader(new DefaultCache(context));
+       }
    }
     @NonNull
     @Override
