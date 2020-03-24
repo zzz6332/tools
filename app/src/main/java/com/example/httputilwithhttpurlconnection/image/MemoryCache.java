@@ -8,16 +8,21 @@ public class MemoryCache implements ImageCache {
 
     private static LruCache<String, Bitmap> lruCache;
     public static final String TAG = "MemoryCache";
+    private static ImageCache cache;
 
-    public MemoryCache() {
-        int maxMemory = (int) Runtime.getRuntime().maxMemory() / 1024;
-        int cacheSize = maxMemory / 4;
-        lruCache = new LruCache<String, Bitmap>(cacheSize){
-            @Override
-            protected int sizeOf(String key, Bitmap value) {
-                return super.sizeOf(key, value);
+
+    private MemoryCache() {
+    }
+    public static ImageCache getInstance(){
+        if (cache == null){
+            synchronized (MemoryCache.class){
+                cache = new MemoryCache();
+                int maxMemory = (int) Runtime.getRuntime().maxMemory() / 1024;
+                int cacheSize = maxMemory / 4;
+                lruCache = new LruCache<String,Bitmap>(cacheSize);
             }
-        };
+        }
+        return cache;
     }
     @Override
     public void put(String url, Bitmap bitmap) {

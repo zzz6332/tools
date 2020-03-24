@@ -17,6 +17,9 @@ import java.net.URL;
 
 public class ImageLoader {
     public static String TAG = "ImageLoader";
+    public static final int SUCCESS = 1;
+    public static final int LOADING = 2;
+    public static final int FAIL = 3;
     private Bitmap bitmap;
     private int loadId;
     private int failId;
@@ -26,21 +29,29 @@ public class ImageLoader {
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
-                    imageView.setImageBitmap(bitmap);
+                case SUCCESS:
+                    imageView.setImageBitmap(bitmap); //加载成功后设置图片
                     break;
-                case 2:
-                    imageView.setImageResource(loadId);
+                case LOADING:
+                    imageView.setImageResource(loadId); //设置加载时的图片
                     break;
-                case 3:
-                    imageView.setImageResource(failId);
+                case FAIL:
+                    imageView.setImageResource(failId); //设置加载失败后的图片
             }
         }
     };
 
-    public ImageLoader(ImageCache imageCache,int loadId,int failId) { //初始化图片加载的策略
+    public ImageLoader(ImageCache imageCache, int loadId, int failId) { //初始化图片加载的策略
         cache = imageCache;
         this.loadId = loadId;
+        this.failId = failId;
+    }
+
+    public void setLoadId(int loadId) {
+        this.loadId = loadId;
+    }
+
+    public void setFailId(int failId) {
         this.failId = failId;
     }
 
@@ -49,7 +60,7 @@ public class ImageLoader {
         bitmap = cache.get(url);
         imageView.setImageResource(loadId);
         if (bitmap != null) {
-            Log.d("TAG","从Cache中获取到了bitmap");
+            Log.d("TAG", "从Cache中获取到了bitmap");
             imageView.setImageBitmap(bitmap);
             return;
         }

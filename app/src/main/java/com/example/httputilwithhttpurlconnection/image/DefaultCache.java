@@ -13,7 +13,7 @@ public class DefaultCache implements ImageCache {
     public DefaultCache(Context context) {
         this.context = context;
         diskCache = new DiskCache(context);
-        memoryCache = new MemoryCache();
+        memoryCache = MemoryCache.getInstance();
     }
 
     @Override
