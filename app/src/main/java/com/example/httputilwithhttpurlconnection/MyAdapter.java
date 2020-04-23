@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.httputilwithhttpurlconnection.image.DefaultCache;
+import com.example.httputilwithhttpurlconnection.image.DiskCache;
 import com.example.httputilwithhttpurlconnection.image.ImageCache;
 import com.example.httputilwithhttpurlconnection.image.ImageLoader;
 import com.example.httputilwithhttpurlconnection.image.MemoryCache;
@@ -44,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewholder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewholder holder, int position) {
       loader.display(holder.imageView,urlList.get(position),10,10);
-        Log.d(TAG,"Bind");
+        Log.d(TAG,"Bind:" + position + holder.imageView);
     }
 
     @Override
