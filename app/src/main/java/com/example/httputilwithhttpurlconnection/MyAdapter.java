@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.httputilwithhttpurlconnection.image.DefaultCache;
 import com.example.httputilwithhttpurlconnection.image.ImageCache;
 import com.example.httputilwithhttpurlconnection.image.ImageLoader;
+import com.example.httputilwithhttpurlconnection.image.MemoryCache;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewholder> {
        this.context = context;
        urlList = list;
        if (loader == null){
-           loader = new ImageLoader(new DefaultCache(context),R.drawable.ic_load,R.drawable.ic_fail);
+           loader = new ImageLoader(MemoryCache.getInstance(),R.drawable.ic_load,R.drawable.ic_fail);
        }
    }
     @NonNull
@@ -42,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewholder holder, int position) {
-      loader.display(holder.imageView,urlList.get(position));
+      loader.display(holder.imageView,urlList.get(position),10,10);
         Log.d(TAG,"Bind");
     }
 

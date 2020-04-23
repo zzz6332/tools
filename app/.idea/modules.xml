@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../HttpUtilWithHttpUrlConnection.iml" filepath="$PROJECT_DIR$/../HttpUtilWithHttpUrlConnection.iml" group="HttpUtilWithHttpUrlConnection" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="HttpUtilWithHttpUrlConnection/app" />
+      <module fileurl="file://$PROJECT_DIR$/../mylibrary/mylibrary.iml" filepath="$PROJECT_DIR$/../mylibrary/mylibrary.iml" group="HttpUtilWithHttpUrlConnection/mylibrary" />
     </modules>
   </component>
 </project>

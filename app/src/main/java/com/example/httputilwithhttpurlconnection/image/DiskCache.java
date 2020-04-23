@@ -15,12 +15,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DiskCache implements ImageCache {
-    private Context context;
     public static final String TAG = "DiskCache";
+    private Context context;
     private ThreadPoolUtil util = ThreadPoolUtil.getInstance(); //线程池工具类
-
     public DiskCache(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     @Override
@@ -44,8 +43,14 @@ public class DiskCache implements ImageCache {
     }
 
     @Override
+    public Bitmap get(String url,int reqWdith,int reqHeight) {
+        Log.d(TAG,"eeeeeeeeeeeee");
+        return MyBitmapFactory.decodeFile(context.getCacheDir() + "/" + url.substring(url.lastIndexOf("/")),reqWdith,reqHeight);
+    }
+
+    @Override
     public Bitmap get(String url) {
-        return BitmapFactory.decodeFile(context.getCacheDir() + "/" + url.substring(url.lastIndexOf("/")));
+        return get(url,0,0);
     }
 
 }

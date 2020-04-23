@@ -1,26 +1,15 @@
 package com.example.httputilwithhttpurlconnection;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.httputilwithhttpurlconnection.httpurlconnection.HttpCallBackListener;
-import com.example.httputilwithhttpurlconnection.image.DefaultCache;
-import com.example.httputilwithhttpurlconnection.image.DiskCache;
-import com.example.httputilwithhttpurlconnection.image.ImageLoader;
-import com.example.httputilwithhttpurlconnection.image.MemoryCache;
-import com.example.httputilwithhttpurlconnection.threadpool.HttpRunnableThread;
-import com.example.httputilwithhttpurlconnection.threadpool.ThreadPoolUtil;
+import com.example.httputilwithhttpurlconnection.databinding.ActivityMainBinding;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        binding.setStu(new Student("陈十一","!"));
+        Student student = new Student();
+       // setContentView(R.layout.activity_main);
         imageView = findViewById(R.id.iv);
         List<String> test = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.rv);

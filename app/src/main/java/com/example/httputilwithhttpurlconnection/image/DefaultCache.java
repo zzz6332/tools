@@ -23,11 +23,11 @@ public class DefaultCache implements ImageCache {
     }
 
     @Override
-    public Bitmap get(final String url) {
+    public Bitmap get(final String url,int reqWdith,int reqHeight) {
         Bitmap bitmap = memoryCache.get(url);
         Log.d(TAG, bitmap + "");
         if (bitmap == null) {
-            bitmap = diskCache.get(url);
+            bitmap = diskCache.get(url,reqWdith,reqHeight);
             if (bitmap != null) {
                 Log.d(TAG, "从本地中获得到了图片");
                 memoryCache.put(url, bitmap);
@@ -36,5 +36,10 @@ public class DefaultCache implements ImageCache {
         }
         Log.d(TAG, "从内存中获得到了图片");
         return bitmap;
+    }
+
+    @Override
+    public Bitmap get(String url) {
+        return get(url,0,0);
     }
 }
